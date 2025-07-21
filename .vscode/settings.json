@@ -69,5 +69,8 @@
   "editor.inlayHints.padding": true,
   "editor.parameterHints.cycle": true,
   "editor.parameterHints.enabled": true,
-  "C_Cpp_Runner.msvcBatchPath": ""
+"C_Cpp_Runner.msvcBatchPath": "",
+"files.associations": {
+	"stdexcept": "cpp"
+}
 }
