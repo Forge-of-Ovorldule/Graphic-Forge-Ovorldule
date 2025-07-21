@@ -5,15 +5,15 @@
 			"name": "Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/build/Попингвини",
+			"program": "${workspaceFolder}/src/samples/build/GraphSouls-Forge",
 			"args": [],
 			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}",
+			"cwd": "${workspaceFolder}/src/samples",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "gdb",
 			"miDebuggerPath": "/usr/bin/gdb",
-			"preLaunchTask": "build",
+			"preLaunchTask": "",
 			"setupCommands": [
 				{
 					"description": "Enable pretty-printing for gdb",
