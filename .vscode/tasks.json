@@ -3,12 +3,15 @@
 	"tasks": [
 		{
 			"label": "build",
+			"command": "sh ./.vscode/build.sh",
 			"type": "shell",
-			"command": "cmake",
-			"args": [
-				"--build",
-				"build"
+			"args": [],
+			"problemMatcher": [
+				"$tsc"
 			],
+			"presentation": {
+				"reveal": "always"
+			},
 			"group": "build"
 		}
 	]

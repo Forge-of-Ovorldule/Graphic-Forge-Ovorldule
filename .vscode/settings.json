@@ -71,6 +71,7 @@
   "editor.parameterHints.enabled": true,
 "C_Cpp_Runner.msvcBatchPath": "",
 "files.associations": {
-	"stdexcept": "cpp"
+	"stdexcept": "cpp",
+	"string": "cpp"
 }
 }
