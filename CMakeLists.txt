@@ -16,17 +16,20 @@ find_package(glfw3 3.3 REQUIRED)
 # Библиотека GraphicForgeOvorldule
 add_library(GraphicForgeOvorldule STATIC
     src/common/Window.cpp
+	src/common/WindowParameters.cpp
+    src/common/Vectors.cpp
+
 )
 
-target_include_directories(OvorlduleGraphics PUBLICf
+target_include_directories(GraphicForgeOvorldule PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_link_libraries(OvorlduleGraphics
+target_link_libraries(GraphicForgeOvorldule
     OpenGL::GL
     glfw
 )
 
 # Пример приложения
 add_executable(example examples/main.cpp)
-target_link_libraries(example OvorlduleGraphics)
+target_link_libraries(example GraphicForgeOvorldule)

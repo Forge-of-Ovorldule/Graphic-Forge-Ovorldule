@@ -1,16 +1,29 @@
 #include "../../include/OvorlduleGraphics/Window.h"
 #include <stdexcept>
+#include <iostream>
 
 namespace Ovorldule
 {
 
 bool Window::glfwInitialized = false;
+int Window::windowCount = 0;
 
+static void glfwErrorCallback (int error, const char* description)
+{
+	std::cerr << "GLFW Error (" << error << "): " << description << std::endl;
+}
+
+// Публичный конструктор
+Window::Window (const WindowParameters& params)
+    : Window (params.getSize ().width (), params.getSize ().height (), params.getTitle ())
+{
+}
+
+// Приватный конструктор
 Window::Window (int width, int height, const std::string& title)
 {
 	initGLFW ();
 
-	// Настройка параметров окна
 	glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -26,18 +39,28 @@ Window::Window (int width, int height, const std::string& title)
 	}
 
 	glfwMakeContextCurrent (window);
+	windowCount++;
 }
 
 Window::~Window ()
 {
-	glfwDestroyWindow (window);
-	terminateGLFW ();
+	if (window)
+	{
+		glfwDestroyWindow (window);
+		windowCount--;
+	}
+
+	if (windowCount == 0)
+	{
+		terminateGLFW ();
+	}
 }
 
 void Window::initGLFW ()
 {
 	if (!glfwInitialized)
 	{
+		glfwSetErrorCallback (glfwErrorCallback);
 		if (!glfwInit ())
 		{
 			throw std::runtime_error ("Failed to initialize GLFW");
@@ -48,21 +71,23 @@ void Window::initGLFW ()
 
 void Window::terminateGLFW ()
 {
-	if (glfwInitialized)
+	if (glfwInitialized && windowCount == 0)
 	{
 		glfwTerminate ();
+		glfwSetErrorCallback (nullptr);
 		glfwInitialized = false;
 	}
 }
 
 bool Window::shouldClose () const
 {
-	return glfwWindowShouldClose (window);
+	return window ? glfwWindowShouldClose (window) : true;
 }
 
 void Window::swapBuffers ()
 {
-	glfwSwapBuffers (window);
+	if (window)
+		glfwSwapBuffers (window);
 }
 
 void Window::pollEvents ()
