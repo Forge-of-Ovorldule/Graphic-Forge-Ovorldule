@@ -3,17 +3,15 @@
 
 using namespace Ovorldule;
 
-int main() {
-    try {
-        Window window; // Правильное создание объекта
-        
-        while (!window.shouldClose()) {
-            window.swapBuffers();
-            window.pollEvents();
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
-    }
-    return 0;
+int main ()
+{
+	Window window;
+	window.setSize (Vector2i (1920, 1080));
+
+	while (!window.shouldClose ())
+	{
+		window.swapBuffers ();
+		window.pollEvents ();
+	}
+	return 0;
 }

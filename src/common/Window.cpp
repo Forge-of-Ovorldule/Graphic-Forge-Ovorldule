@@ -5,8 +5,8 @@
 namespace Ovorldule
 {
 
-bool Window::glfwInitialized = false;
-int Window::windowCount = 0;
+bool Window::m_glfwInitialized = false;
+int Window::m_windowCount = 0;
 
 static void glfwErrorCallback (int error, const char* description)
 {
@@ -32,25 +32,25 @@ Window::Window (int width, int height, const std::string& title)
 	glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-	window = glfwCreateWindow (width, height, title.c_str (), nullptr, nullptr);
-	if (!window)
+	m_window = glfwCreateWindow (width, height, title.c_str (), nullptr, nullptr);
+	if (!m_window)
 	{
 		throw std::runtime_error ("Failed to create GLFW window");
 	}
 
-	glfwMakeContextCurrent (window);
-	windowCount++;
+	glfwMakeContextCurrent (m_window);
+	m_windowCount++;
 }
 
 Window::~Window ()
 {
-	if (window)
+	if (m_window)
 	{
-		glfwDestroyWindow (window);
-		windowCount--;
+		glfwDestroyWindow (m_window);
+		m_windowCount--;
 	}
 
-	if (windowCount == 0)
+	if (m_windowCount == 0)
 	{
 		terminateGLFW ();
 	}
@@ -58,41 +58,54 @@ Window::~Window ()
 
 void Window::initGLFW ()
 {
-	if (!glfwInitialized)
+	if (!m_glfwInitialized)
 	{
 		glfwSetErrorCallback (glfwErrorCallback);
 		if (!glfwInit ())
 		{
 			throw std::runtime_error ("Failed to initialize GLFW");
 		}
-		glfwInitialized = true;
+		m_glfwInitialized = true;
 	}
 }
 
 void Window::terminateGLFW ()
 {
-	if (glfwInitialized && windowCount == 0)
+	if (m_glfwInitialized && m_windowCount == 0)
 	{
 		glfwTerminate ();
 		glfwSetErrorCallback (nullptr);
-		glfwInitialized = false;
+		m_glfwInitialized = false;
 	}
 }
 
 bool Window::shouldClose () const
 {
-	return window ? glfwWindowShouldClose (window) : true;
+	return m_window ? glfwWindowShouldClose (m_window) : true;
 }
 
 void Window::swapBuffers ()
 {
-	if (window)
-		glfwSwapBuffers (window);
+	if (m_window)
+		glfwSwapBuffers (m_window);
 }
 
 void Window::pollEvents ()
 {
 	glfwPollEvents ();
+}
+
+void Window::setSize (const Vector2i& size)
+{
+	glfwSetWindowSize (m_window, size.width (), size.height ());
+}
+void Window::setSize (const int& width, const int& height)
+{
+	glfwSetWindowSize (m_window, width, height);
+}
+void Window::setSize (const int& size)
+{
+	glfwSetWindowSize (m_window, size, size);
 }
 
 } // namespace Ovorldule
