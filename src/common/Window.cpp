@@ -131,4 +131,23 @@ void Window::setTitle (const WindowParameters& params)
 	glfwSetWindowTitle (m_window, params.getTitle ().c_str ());
 }
 
+const Vector2i Window::getSize () const
+{
+	int width, height = 0;
+	glfwGetWindowSize (m_window, &width, &height);
+	return Vector2i (width, height);
+}
+const int Window::getWidth () const
+{
+	int width, height = 0;
+	glfwGetWindowSize (m_window, &width, &height);
+	return width;
+}
+const int Window::getHeight () const
+{
+	int width, height = 0;
+	glfwGetWindowSize (m_window, &width, &height);
+	return height;
+}
+
 } // namespace Ovorldule

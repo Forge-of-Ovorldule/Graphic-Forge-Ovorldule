@@ -1,12 +1,12 @@
 /*
- * Copyright 2025 Forge-of-Ovorldule 
+ * Copyright 2025 Forge-of-Ovorldule
  * https://github.com/Forge-of-Ovorldule
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at:
  *     http://www.apache.org/licenses/LICENSE-2.0
-*/
+ */
 
 #pragma once
 #include <GLFW/glfw3.h>
@@ -33,6 +33,10 @@ class Window
 
 		void setTitle (const std::string title);
 		void setTitle (const WindowParameters& params = WindowParameters ());
+
+		const Vector2i getSize () const;
+		const int getWidth () const;
+		const int getHeight () const;
 
 		// Запрет копирования
 		Window (const Window&) = delete;
