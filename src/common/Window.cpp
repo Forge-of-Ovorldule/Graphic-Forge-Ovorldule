@@ -1,3 +1,13 @@
+/*
+ * Copyright 2025 Forge-of-Ovorldule
+ * https://github.com/Forge-of-Ovorldule
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at:
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 #include "../../include/OvorlduleGraphics/Window.h"
 #include <stdexcept>
 #include <iostream>
@@ -106,6 +116,19 @@ void Window::setSize (const int& width, const int& height)
 void Window::setSize (const int& size)
 {
 	glfwSetWindowSize (m_window, size, size);
+}
+void Window::setSize (const WindowParameters& params)
+{
+	glfwSetWindowSize (m_window, params.getSize ().x, params.getSize ().y);
+}
+
+void Window::setTitle (const std::string title)
+{
+	glfwSetWindowTitle (m_window, title.c_str ());
+}
+void Window::setTitle (const WindowParameters& params)
+{
+	glfwSetWindowTitle (m_window, params.getTitle ().c_str ());
 }
 
 } // namespace Ovorldule
