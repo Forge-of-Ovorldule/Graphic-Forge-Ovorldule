@@ -9,7 +9,7 @@ int main ()
 	window.setSize (Vector2i (1920, 1080));
 	window.setTitle ("The best library");
 
-	while (!window.shouldClose ())
+	while (window.isOpen ())
 	{
 		window.swapBuffers ();
 		window.pollEvents ();

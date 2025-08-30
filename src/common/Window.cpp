@@ -150,4 +150,9 @@ const int Window::getHeight () const
 	return height;
 }
 
+const bool Window::isOpen () const
+{
+	return !(m_window ? glfwWindowShouldClose (m_window) : true);
+}
+
 } // namespace Ovorldule
