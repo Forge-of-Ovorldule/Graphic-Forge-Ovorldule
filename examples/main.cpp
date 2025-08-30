@@ -11,8 +11,7 @@ int main ()
 
 	while (window.isOpen ())
 	{
-		window.swapBuffers ();
-		window.pollEvents ();
+		window.work();
 	}
 	return 0;
 }

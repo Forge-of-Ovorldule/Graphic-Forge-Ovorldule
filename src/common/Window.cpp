@@ -155,4 +155,10 @@ const bool Window::isOpen () const
 	return !(m_window ? glfwWindowShouldClose (m_window) : true);
 }
 
+void Window::work ()
+{
+	swapBuffers ();
+	pollEvents ();
+}
+
 } // namespace Ovorldule

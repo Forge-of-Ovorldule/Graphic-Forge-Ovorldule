@@ -27,9 +27,6 @@ class Window
 		void setSize (const int& size);
 		void setSize (const WindowParameters& params = WindowParameters ());
 
-		void swapBuffers ();
-		void pollEvents ();
-
 		const bool isOpen () const;
 
 		void setTitle (const std::string title);
@@ -39,11 +36,15 @@ class Window
 		const int getWidth () const;
 		const int getHeight () const;
 
-		// Запрет копирования
+		void work ();
+
 		Window (const Window&) = delete;
 		Window& operator= (const Window&) = delete;
 
 	private:
+		void swapBuffers ();
+		void pollEvents ();
+
 		bool shouldClose () const;
 
 		GLFWwindow* m_window = nullptr;
