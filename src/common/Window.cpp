@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Forge-of-Ovorldule
+ * Copyright 2025 Forge-of-Ovorldule and Mr_Soul-Forest(https://github.com/Mr-Soul-Forest)
  * https://github.com/Forge-of-Ovorldule
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,14 +23,12 @@ static void glfwErrorCallback (int error, const char* description)
 	std::cerr << "GLFW Error (" << error << "): " << description << std::endl;
 }
 
-// Публичный конструктор
 Window::Window (const WindowParameters& params)
     : Window (params.getSize ().width (), params.getSize ().height (), params.getTitle ())
 {
 	m_windowedSize = params.getSize ();
 }
 
-// Приватный конструктор
 Window::Window (int width, int height, const std::string& title)
 {
 	initGLFW ();

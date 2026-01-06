@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Forge-of-Ovorldule
+ * Copyright 2025 Forge-of-Ovorldule and Mr_Soul-Forest(https://github.com/Mr-Soul-Forest)
  * https://github.com/Forge-of-Ovorldule
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,10 @@ class WindowParameters
 
 	public:
 		WindowParameters ();
-		WindowParameters (const Vector2i& size, const std::string& title);
+
+		WindowParameters& size (const Vector2i& size);
+		WindowParameters& size (int width, int height);
+		WindowParameters& title (const std::string& title);
 
 		const Vector2i& getSize () const;
 		const std::string& getTitle () const;

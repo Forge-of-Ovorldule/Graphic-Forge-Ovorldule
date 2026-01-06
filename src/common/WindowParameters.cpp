@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Forge-of-Ovorldule
+ * Copyright 2025 Forge-of-Ovorldule and Mr_Soul-Forest(https://github.com/Mr-Soul-Forest)
  * https://github.com/Forge-of-Ovorldule
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +17,22 @@ WindowParameters::WindowParameters ()
 {
 }
 
-WindowParameters::WindowParameters (const Vector2i& size, const std::string& title)
-    : m_size (size), m_title (title)
+WindowParameters& WindowParameters::size (const Vector2i& size)
 {
+	m_size = size;
+	return *this;
+}
+
+WindowParameters& WindowParameters::size (int width, int height)
+{
+	m_size = Vector2i (width, height);
+	return *this;
+}
+
+WindowParameters& WindowParameters::title (const std::string& title)
+{
+	m_title = title;
+	return *this;
 }
 
 const Vector2i& WindowParameters::getSize () const
