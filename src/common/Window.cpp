@@ -119,7 +119,7 @@ void Window::setSize (const int& size)
 }
 void Window::setSize (const WindowParameters& params)
 {
-	glfwSetWindowSize (m_window, params.getSize ().x, params.getSize ().y);
+	glfwSetWindowSize (m_window, params.getSize ().width (), params.getSize ().height ());
 }
 
 void Window::setTitle (const std::string title)
@@ -187,6 +187,14 @@ void Window::close ()
 void Window::setCloseCallback (CloseCallback callback)
 {
 	m_onClose = callback;
+}
+
+void Window::setResizable (bool resizable = true)
+{
+	if (m_window)
+	{
+		glfwSetWindowAttrib (m_window, GLFW_RESIZABLE, resizable ? GLFW_TRUE : GLFW_FALSE);
+	}
 }
 
 } // namespace Ovorldule

@@ -20,7 +20,7 @@ namespace Ovorldule
 class Window
 {
 	public:
-		using CloseCallback = std::function<void()>;
+		using CloseCallback = std::function<void ()>;
 
 		explicit Window (const WindowParameters& params = WindowParameters ());
 		~Window ();
@@ -29,6 +29,7 @@ class Window
 		void setSize (const int& width, const int& height);
 		void setSize (const int& size);
 		void setSize (const WindowParameters& params = WindowParameters ());
+		void setResizable (bool resizable);
 
 		const bool isOpen () const;
 
@@ -41,8 +42,8 @@ class Window
 
 		void work ();
 
-		void close();
-		void setCloseCallback(CloseCallback callback);
+		void close ();
+		void setCloseCallback (CloseCallback callback);
 
 		Window (const Window&) = delete;
 		Window& operator= (const Window&) = delete;
