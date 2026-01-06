@@ -8,10 +8,14 @@ int main ()
 	Window window;
 	window.setSize (Vector2i (1920, 1080));
 	window.setTitle ("The best library");
+	window.setCloseCallback ([]() {
+		std::cout << "Window closed" << std::endl;
+	});
 
 	while (window.isOpen ())
 	{
 		window.work();
 	}
+
 	return 0;
 }

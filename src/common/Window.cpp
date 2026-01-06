@@ -157,8 +157,36 @@ const bool Window::isOpen () const
 
 void Window::work ()
 {
-	swapBuffers ();
+	if (!m_window)
+		return;
+
 	pollEvents ();
+
+	if (glfwWindowShouldClose (m_window))
+	{
+		if (m_onClose)
+		{
+			m_onClose ();
+			m_onClose = nullptr;
+		}
+	}
+	else
+	{
+		swapBuffers ();
+	}
+}
+
+void Window::close ()
+{
+	if (m_window)
+	{
+		glfwSetWindowShouldClose (m_window, GLFW_TRUE);
+	}
+}
+
+void Window::setCloseCallback (CloseCallback callback)
+{
+	m_onClose = callback;
 }
 
 } // namespace Ovorldule

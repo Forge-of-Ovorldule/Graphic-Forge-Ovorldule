@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Forge-of-Ovorldule
+ * Copyright 2025 Forge-of-Ovorldule and Mr_Soul-Forest(https://github.com/Mr-Soul-Forest)
  * https://github.com/Forge-of-Ovorldule
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +11,7 @@
 #pragma once
 #include <GLFW/glfw3.h>
 #include <string>
+#include <functional>
 #include "Vectors.h"
 #include "WindowParameters.h"
 
@@ -19,6 +20,8 @@ namespace Ovorldule
 class Window
 {
 	public:
+		using CloseCallback = std::function<void()>;
+
 		explicit Window (const WindowParameters& params = WindowParameters ());
 		~Window ();
 
@@ -38,6 +41,9 @@ class Window
 
 		void work ();
 
+		void close();
+		void setCloseCallback(CloseCallback callback);
+
 		Window (const Window&) = delete;
 		Window& operator= (const Window&) = delete;
 
@@ -50,12 +56,13 @@ class Window
 		GLFWwindow* m_window = nullptr;
 
 		static bool m_glfwInitialized;
-		static int m_windowCount; // Счётчик окон
+		static int m_windowCount;
 
 		static void initGLFW ();
 		static void terminateGLFW ();
 
-		// Приватный конструктор для делегирования
+		CloseCallback m_onClose = nullptr;
+
 		Window (int width, int height, const std::string& title);
 };
 } // namespace Ovorldule
