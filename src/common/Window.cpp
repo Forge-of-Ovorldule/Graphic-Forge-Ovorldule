@@ -27,6 +27,7 @@ static void glfwErrorCallback (int error, const char* description)
 Window::Window (const WindowParameters& params)
     : Window (params.getSize ().width (), params.getSize ().height (), params.getTitle ())
 {
+	m_windowedSize = params.getSize ();
 }
 
 // Приватный конструктор
@@ -107,7 +108,14 @@ void Window::pollEvents ()
 
 void Window::setSize (const Vector2i& size)
 {
-	glfwSetWindowSize (m_window, size.width (), size.height ());
+	if (m_window)
+	{
+		glfwSetWindowSize (m_window, size.width (), size.height ());
+		if (!m_isFullscreen)
+		{
+			m_windowedSize = size;
+		}
+	}
 }
 void Window::setSize (const int& width, const int& height)
 {
@@ -195,6 +203,34 @@ void Window::setResizable (bool resizable = true)
 	{
 		glfwSetWindowAttrib (m_window, GLFW_RESIZABLE, resizable ? GLFW_TRUE : GLFW_FALSE);
 	}
+}
+
+void Window::setFullscreen (bool fullscreen)
+{
+	if (!m_window || m_isFullscreen == fullscreen)
+		return;
+
+	if (fullscreen)
+	{
+		glfwGetWindowPos (m_window, &m_windowedPos.x, &m_windowedPos.y);
+		glfwGetWindowSize (m_window, &m_windowedSize.x, &m_windowedSize.y);
+
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor ();
+		const GLFWvidmode* mode = glfwGetVideoMode (monitor);
+
+		glfwSetWindowMonitor (m_window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+	}
+	else
+	{
+		glfwSetWindowMonitor (m_window, nullptr, m_windowedPos.x, m_windowedPos.y, m_windowedSize.x, m_windowedSize.y, 0);
+	}
+
+	m_isFullscreen = fullscreen;
+}
+
+void Window::toggleFullscreen ()
+{
+	setFullscreen (!m_isFullscreen);
 }
 
 } // namespace Ovorldule

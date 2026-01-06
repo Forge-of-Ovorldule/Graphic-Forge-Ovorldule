@@ -6,7 +6,7 @@ using namespace Ovorldule;
 int main ()
 {
 	Window window;
-	window.setSize (Vector2i (1920, 1080));
+	window.setSize (Vector2i (800, 600));
 	window.setTitle ("Ovorldule graphics example");
 	window.setCloseCallback ([] ()
 	                         { std::cout << "Window closed" << std::endl; });

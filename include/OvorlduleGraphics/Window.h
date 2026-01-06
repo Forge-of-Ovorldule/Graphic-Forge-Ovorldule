@@ -22,6 +22,10 @@ class Window
 	public:
 		using CloseCallback = std::function<void ()>;
 
+		bool m_isFullscreen = false;
+		Vector2i m_windowedSize;
+		Vector2i m_windowedPos;
+
 		explicit Window (const WindowParameters& params = WindowParameters ());
 		~Window ();
 
@@ -45,24 +49,27 @@ class Window
 		void close ();
 		void setCloseCallback (CloseCallback callback);
 
+		void setFullscreen (bool fullscreen);
+		void toggleFullscreen ();
+
 		Window (const Window&) = delete;
 		Window& operator= (const Window&) = delete;
 
 	private:
-		void swapBuffers ();
-		void pollEvents ();
-
-		bool shouldClose () const;
-
 		GLFWwindow* m_window = nullptr;
 
 		static bool m_glfwInitialized;
 		static int m_windowCount;
 
+		CloseCallback m_onClose = nullptr;
+
+		void swapBuffers ();
+		void pollEvents ();
+
+		bool shouldClose () const;
+
 		static void initGLFW ();
 		static void terminateGLFW ();
-
-		CloseCallback m_onClose = nullptr;
 
 		Window (int width, int height, const std::string& title);
 };
